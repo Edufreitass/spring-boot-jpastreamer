@@ -31,4 +31,23 @@ public class EmployeeService {
                 .collect(Collectors.toList());
     }
 
+    public List<Employee> getEmployeesByDept(String dept) {
+        return jpaStreamer.stream(Employee.class)
+                .filter(Employee$.dept.equal(dept))
+                .collect(Collectors.toList());
+    }
+
+    public List<Employee> getEmployeesByDeptAndSalary(String dept, double salary) {
+        return jpaStreamer.stream(Employee.class)
+                .filter(Employee$.dept.equal(dept)
+                        .and(Employee$.salary.greaterOrEqual(salary)))
+                .collect(Collectors.toList());
+    }
+
+    public List<Employee> getEmployeeBySalaryRange(double salary1, double salary2) {
+        return jpaStreamer.stream(Employee.class)
+                .filter(Employee$.salary.between(salary1, salary2))
+                .collect(Collectors.toList());
+    }
+
 }

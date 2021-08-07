@@ -24,4 +24,19 @@ public class EmployeeController {
         return service.getEmployees(offset, limit);
     }
 
+    @GetMapping("/{dept}")
+    public List<Employee> getEmployeesByDept(@PathVariable String dept) {
+        return service.getEmployeesByDept(dept);
+    }
+
+    @GetMapping("/fetch/{dept}/{salary}")
+    public List<Employee> getEmployeesByDeptAndSalary(@PathVariable String dept, @PathVariable double salary) {
+        return service.getEmployeesByDeptAndSalary(dept, salary);
+    }
+
+    @GetMapping("/range/{salary1}/{salary2}")
+    public List<Employee> getEmployeeBySalaryRange(@PathVariable double salary1, @PathVariable double salary2) {
+        return service.getEmployeeBySalaryRange(salary1, salary2);
+    }
+
 }
