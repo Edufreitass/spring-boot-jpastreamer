@@ -1,6 +1,7 @@
 package com.javatechie.jpastreamer.service;
 
 import com.javatechie.jpastreamer.entity.Employee;
+import com.javatechie.jpastreamer.entity.Employee$;
 import com.javatechie.jpastreamer.repository.EmployeeRepository;
 import com.speedment.jpastreamer.application.JPAStreamer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,11 @@ public class EmployeeService {
         return repository.saveAll(employees);
     }
 
-    public List<Employee> getEmployees() {
+    public List<Employee> getEmployees(int offset, int limit) {
         return jpaStreamer.stream(Employee.class)
+                .sorted(Employee$.name)
+                .skip(offset)
+                .limit(limit)
                 .collect(Collectors.toList());
     }
 

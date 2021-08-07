@@ -19,9 +19,9 @@ public class EmployeeController {
         return service.saveEmployees(employees);
     }
 
-    @GetMapping
-    public List<Employee> getEmployees() {
-        return service.getEmployees();
+    @GetMapping("/{offset}/{limit}")
+    public List<Employee> getEmployees(@PathVariable int offset, @PathVariable int limit) {
+        return service.getEmployees(offset, limit);
     }
 
 }
