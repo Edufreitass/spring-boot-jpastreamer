@@ -7,7 +7,9 @@ import com.speedment.jpastreamer.application.JPAStreamer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,6 +50,24 @@ public class EmployeeService {
         return jpaStreamer.stream(Employee.class)
                 .filter(Employee$.salary.between(salary1, salary2))
                 .collect(Collectors.toList());
+    }
+
+    // aggregate fun
+
+    public Employee minPaidEmp() {
+        return jpaStreamer.stream(Employee.class)
+                .min(Comparator.comparing(Employee::getSalary)).get();
+    }
+
+    public List<Employee> getEmployeesByIds(List<Integer> ids) {
+        return jpaStreamer.stream(Employee.class)
+                .filter(Employee$.id.in(ids))
+                .collect(Collectors.toList());
+    }
+
+    public Map<String, List<Employee>> getEmployeeGroupByDept() {
+        return jpaStreamer.stream(Employee.class)
+                .collect(Collectors.groupingBy(Employee::getDept));
     }
 
 }

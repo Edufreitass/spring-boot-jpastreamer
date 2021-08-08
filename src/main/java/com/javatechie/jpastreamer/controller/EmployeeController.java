@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/employees")
@@ -37,6 +38,21 @@ public class EmployeeController {
     @GetMapping("/range/{salary1}/{salary2}")
     public List<Employee> getEmployeeBySalaryRange(@PathVariable double salary1, @PathVariable double salary2) {
         return service.getEmployeeBySalaryRange(salary1, salary2);
+    }
+
+    @GetMapping("/min")
+    public Employee getLessPaidEmployee() {
+        return service.minPaidEmp();
+    }
+
+    @PostMapping("/ids")
+    public List<Employee> getEmployeesByIds(@RequestBody List<Integer> ids) {
+        return service.getEmployeesByIds(ids);
+    }
+
+    @GetMapping("/groupByDept")
+    public Map<String, List<Employee>> getEmployeeGroupByDept() {
+        return service.getEmployeeGroupByDept();
     }
 
 }
